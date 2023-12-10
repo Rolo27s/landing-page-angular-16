@@ -1,2 +1,10 @@
 <p>product-detail works!</p>
-<h1 [ngStyle] = "{'background-color': color}">Aqui veras el detalle del producto: {{ producto }} </h1>
+
+<!-- Estructura típica de carga de contenido -->
+<ng-container *ngIf="loading"><i> Cargando información... </i></ng-container>
+
+<ng-container *ngIf="!loading">
+    <h1>Producto: {{ producto?.name }} </h1>
+    <h2 [ngStyle]="{'color': color}" >Precio: {{ producto?.price | currency }}</h2> <!-- Aplicamos un estilo con una clase que definimos en el .ts, linea 24 -->
+    <h3 *ngIf="producto?.description" >Descrición: {{ producto?.description }}</h3>
+</ng-container>
