@@ -30,6 +30,25 @@
             <div class="text-danger" *ngIf="hasErrors('nombre', 'minlength')"> Nombre de minimo 3 caracteres </div>
         </div>
         <div class="mb-3">
+          <label for="nombre" class="form-label">Apellido</label>
+          <input [ngClass]="{'is-invalid':hasErrors('apellido', 'required') || hasErrors('apellido', 'minlength')}" type="text" class="form-control" id="apellido" formControlName="apellido">
+          <!-- Control de error de username -->
+          <div class="text-danger" *ngIf="hasErrors('apellido', 'required')"> Apellido requerido </div>
+          <div class="text-danger" *ngIf="hasErrors('apellido', 'minlength')"> Apellido de minimo 3 caracteres </div>
+        </div>
+        <div class="mb-3">
+          <label for="tipoDni" class="form-label">Tipo de DNI</label>
+          <select class="form-select" id="tipoDni" formControlName="tipoDni">
+            <option value="DNI">DNI</option>
+            <option value="Pasaporte">Pasaporte</option>
+            <option value="Cedula">Cedula</option>
+          </select>
+        </div>
+        <div class="mb-3" *ngIf="mostrarDNI">
+          <dni-input [tipoDni]="tipoDni"/>
+          <!-- El contenido de tipoDNI esta en el hijo dni -->
+        </div>
+          <div class="mb-3">
           <label for="email" class="form-label">Email </label>
           <input [ngClass]="{'is-invalid':hasErrors('email', 'required') || hasErrors('email','email')}" type="email" class="form-control" id="email" formControlName="email">
           <!-- Control de error de email -->
