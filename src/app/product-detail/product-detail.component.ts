@@ -1,31 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Product, productsList } from '../products/products.mock';
+import { ActivatedRoute, Params } from '@angular/router';
+import { IProduct } from '../models/product.model';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css']
+  styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit {
-  producto?: Product;
-  productList: Product[] = productsList;
+  product?: IProduct;
   loading: boolean = true;
   color: string = '';
 
-  constructor (private _route: ActivatedRoute) {
-  }
+  constructor(
+    private _route: ActivatedRoute,
+    private _apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
-    setTimeout( () => {
-      this._route.params.subscribe(params => {
-        console.log(params['productId']); // productID defined into /app-routing.module.ts, line 11.
-        this.producto = this.productList.find(producto => producto.id == params['productId']);
-        this.color = this.producto?.price as number > 5 ? 'red' : ''; // Parametro de estilo de clase que aplicamos en el HTML
-        this.loading = false;
-      });
-    }, 1500);
-
+    this._route.params.subscribe({
+      next: (params: Params) => {
+        // console.log(params['productId']); // productID defined into /app-routing.module.ts, line 11.
+        this._apiService.getProduct(Number(params['productId'])).subscribe({
+          next: (data: IProduct) => {
+            this.product = data;
+            this.color = (this.product?.price as number) > 200 ? 'red' : ''; // Parámetro de estilo de clase que aplicamos en el HTML
+            this.loading = false;
+            error: (error: any) => {
+              console.log(error);
+              this.loading = false;
+            };
+          },
+        });
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
-
 }

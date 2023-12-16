@@ -1,10 +1,16 @@
-<p>product-detail works!</p>
-
+<div class="center">
+  <div class="card" style="max-width: 20rem" *ngIf="!loading">
+    <img
+      src="{{ product?.image }}"
+      class="card-img-top"
+      alt="{{ product?.title }}"
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{ product?.title | uppercase }}</h5>
+      <h6 class="card-price">{{ product?.price | currency }}</h6>
+      <p class="card-text">{{ product?.description }}</p>
+    </div>
+  </div>
+</div>
 <!-- Estructura típica de carga de contenido -->
-<ng-container *ngIf="loading"><i> Cargando información... </i></ng-container>
-
-<ng-container *ngIf="!loading">
-    <h1>Producto: {{ producto?.name }} </h1>
-    <h2 [ngStyle]="{'color': color}" >Precio: {{ producto?.price | currency }}</h2> <!-- Aplicamos un estilo con una clase que definimos en el .ts, linea 24 -->
-    <h3 *ngIf="producto?.description" >Descrición: {{ producto?.description }}</h3>
-</ng-container>
+<ng-container *ngIf="loading"><i> Loading... </i></ng-container>

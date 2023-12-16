@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DniComponent } from './contact/dni/dni.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,15 +18,16 @@ import { DniComponent } from './contact/dni/dni.component';
     ProductsComponent,
     ContactComponent,
     ProductDetailComponent,
-    DniComponent
+    DniComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, // Formularios de tipo plantilla
-    ReactiveFormsModule // Formularios de tipo reactivo
+    ReactiveFormsModule, // Formularios de tipo reactivo
+    HttpClientModule, // Para hacer peticiones http
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
