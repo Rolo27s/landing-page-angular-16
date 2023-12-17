@@ -1,6 +1,7 @@
 # LandingPageAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.10.
+![img-angular-16](src/assets/angularHOME.png)
 
 ## Development server
 
